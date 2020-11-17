@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MainGameLoop",
+            "request": "launch",
+            "mainClass": "engineTester.MainGameLoop",
+            "projectName": "GameEngine_440b9819",
+            "vmArgs": "-Djava.library.path=lib/natives"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "vmArgs": "-Djava.library.path=lib/natives"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<GameEngine_440b9819>",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "GameEngine_440b9819",
+            "vmArgs": "-Djava.library.path=lib/natives"
+        }
+    ]
+}
