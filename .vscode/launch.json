@@ -9,7 +9,7 @@
             "name": "CodeLens (Launch) - MainGameLoop",
             "request": "launch",
             "mainClass": "engineTester.MainGameLoop",
-            "projectName": "GameEngine_440b9819",
+            "projectName": "GameEngine_5cc7b8e9",
             "vmArgs": "-Djava.library.path=lib/natives"
         },
         {
