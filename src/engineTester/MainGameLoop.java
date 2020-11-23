@@ -28,7 +28,7 @@ public class MainGameLoop {
 
         Loader loader = new Loader();
 
-        ModelData data = OBJFileLoader.loadOBJ("steve");
+        ModelData data = OBJFileLoader.loadOBJ("steve_rotated");
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grass"));
         TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("mud"));
@@ -60,7 +60,7 @@ public class MainGameLoop {
         Entity entity = new Entity(texturedModel, new Vector3f(0, 0, -100), 0, 0, 0, 1);
         Entity entity2 = new Entity(texturedModel2, new Vector3f(-20, 0, -100), 0, 0, 0, 1);
         Entity entity3 = new Entity(texturedModel3, new Vector3f(20, 0, -100), 0, 0, 0, 1);
-        Player playerEntity = new Player(player, new Vector3f(-40, 10, -100), 0, 0, 0, 0.2f);
+        Player playerEntity = new Player(player, new Vector3f(-40, 10, -100), 0, 0, 0, 1);
         Light light = new Light(new Vector3f(1000, 2000, 2000), new Vector3f(1, 1, 1));
 
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
