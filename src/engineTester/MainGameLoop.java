@@ -51,34 +51,32 @@ public class MainGameLoop {
         TexturedModel texturedModel = new TexturedModel(model, texture);
         TexturedModel texturedModel2 = new TexturedModel(model2, texture2);
         TexturedModel texturedModel3 = new TexturedModel(model3, texture3);
-        TexturedModel player = new TexturedModel(steve, mando);
+        TexturedModel playerModel = new TexturedModel(steve, mando);
         texturedModel2.getTexture().setHasTransparency(true);
         texturedModel2.getTexture().setUseFakeLighting(true);
         texturedModel3.getTexture().setHasTransparency(true);
         texture.setShineDamper(10);
         texture.setReflectivity(1);
-        Entity entity = new Entity(texturedModel, new Vector3f(0, 0, -100), 0, 0, 0, 1);
-        Entity entity2 = new Entity(texturedModel2, new Vector3f(-20, 0, -100), 0, 0, 0, 1);
-        Entity entity3 = new Entity(texturedModel3, new Vector3f(20, 0, -100), 0, 0, 0, 1);
-        Player playerEntity = new Player(player, new Vector3f(-40, 10, -100), 0, 0, 0, 1);
+
+        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
+
+        Entity entity = new Entity(texturedModel, new Vector3f(0, terrain.getHeightOfTerrain(0, -100), -100), 0, 0, 0, 1);
+        Entity entity2 = new Entity(texturedModel2, new Vector3f(20, terrain.getHeightOfTerrain(20, -150), -150), 0, 0, 0, 1);
+        Entity entity3 = new Entity(texturedModel3, new Vector3f(20, terrain.getHeightOfTerrain(20, -100), -100), 0, 0, 0, 1);
+        Player player = new Player(playerModel, new Vector3f(50, terrain.getHeightOfTerrain(50, -200) + 3, -200), 0, 0, 0, 1);
         Light light = new Light(new Vector3f(1000, 2000, 2000), new Vector3f(1, 1, 1));
 
-        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
-        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
-
-        Camera camera = new Camera();
+        Camera camera = new Camera(player);
         MasterRenderer renderer = new MasterRenderer();
         
           while(!Display.isCloseRequested()){
             camera.move();
-            playerEntity.move();
-            renderer.processEntity(playerEntity);
+            player.move(terrain);
+            renderer.processEntity(player);
             renderer.processTerrain(terrain);
-            renderer.processTerrain(terrain2);
             renderer.processEntity(entity);
             renderer.processEntity(entity2);
             renderer.processEntity(entity3);
-            
             renderer.render(light, camera);
             DisplayManager.updateDisplay();
         }
