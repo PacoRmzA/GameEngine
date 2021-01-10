@@ -20,6 +20,8 @@ import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
+import java.util.Random;
+
 public class MainGameLoop {
     
     public static void main(String[] args) {
@@ -46,6 +48,7 @@ public class MainGameLoop {
         RawModel model3 = OBJLoader.loadObjModel("grassModel", loader);
         ModelTexture texture = new ModelTexture(loader.loadTexture("blue"));
         ModelTexture texture2 = new ModelTexture(loader.loadTexture("fern"));
+        texture2.setNumberOfRows(2);
         ModelTexture texture3 = new ModelTexture(loader.loadTexture("grassTexture"));
         ModelTexture mando = new ModelTexture(loader.loadTexture("L3H_TheCubicJedi"));
         TexturedModel texturedModel = new TexturedModel(model, texture);
@@ -61,7 +64,8 @@ public class MainGameLoop {
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
 
         Entity entity = new Entity(texturedModel, new Vector3f(0, terrain.getHeightOfTerrain(0, -100), -100), 0, 0, 0, 1);
-        Entity entity2 = new Entity(texturedModel2, new Vector3f(20, terrain.getHeightOfTerrain(20, -150), -150), 0, 0, 0, 1);
+        Random random = new Random(8544889);
+        Entity entity2 = new Entity(texturedModel2, random.nextInt(4), new Vector3f(20, terrain.getHeightOfTerrain(20, -150), -150), 0, 0, 0, 1);
         Entity entity3 = new Entity(texturedModel3, new Vector3f(20, terrain.getHeightOfTerrain(20, -100), -100), 0, 0, 0, 1);
         Player player = new Player(playerModel, new Vector3f(50, terrain.getHeightOfTerrain(50, -200) + 3, -200), 0, 0, 0, 1);
         Light light = new Light(new Vector3f(1000, 2000, 2000), new Vector3f(1, 1, 1));
