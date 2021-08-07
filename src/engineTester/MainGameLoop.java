@@ -1,12 +1,15 @@
 package engineTester;
 
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import entities.Player;
+import guis.GuiRenderer;
+import guis.GuiTexture;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
@@ -20,6 +23,8 @@ import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainGameLoop {
@@ -71,9 +76,16 @@ public class MainGameLoop {
         Light light = new Light(new Vector3f(1000, 2000, 2000), new Vector3f(1, 1, 1));
 
         Camera camera = new Camera(player);
+
+        List<GuiTexture> guis = new ArrayList<GuiTexture>();
+        GuiTexture gui = new GuiTexture(loader.loadTexture("testgui"), new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
+        guis.add(gui);
+
+        GuiRenderer guiRenderer = new GuiRenderer(loader);
+
         MasterRenderer renderer = new MasterRenderer();
         
-          while(!Display.isCloseRequested()){
+        while(!Display.isCloseRequested()){
             camera.move();
             player.move(terrain);
             renderer.processEntity(player);
@@ -82,9 +94,11 @@ public class MainGameLoop {
             renderer.processEntity(entity2);
             renderer.processEntity(entity3);
             renderer.render(light, camera);
+            guiRenderer.render(guis);
             DisplayManager.updateDisplay();
         }
 
+        guiRenderer.CleanUp();
         renderer.CleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
