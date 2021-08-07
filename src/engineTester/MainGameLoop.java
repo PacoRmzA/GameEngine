@@ -68,17 +68,22 @@ public class MainGameLoop {
 
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
 
-        Entity entity = new Entity(texturedModel, new Vector3f(0, terrain.getHeightOfTerrain(0, -100), -100), 0, 0, 0, 1);
+        Entity entity = new Entity(texturedModel, new Vector3f(20, terrain.getHeightOfTerrain(0, -100), -100), 0, 0, 0, 1);
         Random random = new Random(8544889);
         Entity entity2 = new Entity(texturedModel2, random.nextInt(4), new Vector3f(20, terrain.getHeightOfTerrain(20, -150), -150), 0, 0, 0, 1);
         Entity entity3 = new Entity(texturedModel3, new Vector3f(20, terrain.getHeightOfTerrain(20, -100), -100), 0, 0, 0, 1);
         Player player = new Player(playerModel, new Vector3f(50, terrain.getHeightOfTerrain(50, -200) + 3, -200), 0, 0, 0, 1);
-        Light light = new Light(new Vector3f(1000, 2000, 2000), new Vector3f(1, 1, 1));
+
+        Light light = new Light(new Vector3f(20000, 20000, 2000), new Vector3f(0.2f, 0.2f, 0.2f));
+        List<Light> lights = new ArrayList<Light>();
+        lights.add(light);
+        lights.add(new Light(new Vector3f(50, 50, -200), new Vector3f(2, 2, 0), new Vector3f(0.1f, 0.01f, 0.002f)));
+        lights.add(new Light(new Vector3f(20, 50, -100), new Vector3f(0, 2, 2), new Vector3f(0.1f, 0.01f, 0.002f)));
 
         Camera camera = new Camera(player);
 
         List<GuiTexture> guis = new ArrayList<GuiTexture>();
-        GuiTexture gui = new GuiTexture(loader.loadTexture("testgui"), new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
+        GuiTexture gui = new GuiTexture(loader.loadTexture("testgui"), new Vector2f(0.75f, 0.75f), new Vector2f(0.25f, 0.25f));
         guis.add(gui);
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
@@ -93,7 +98,7 @@ public class MainGameLoop {
             renderer.processEntity(entity);
             renderer.processEntity(entity2);
             renderer.processEntity(entity3);
-            renderer.render(light, camera);
+            renderer.render(lights, camera);
             guiRenderer.render(guis);
             DisplayManager.updateDisplay();
         }

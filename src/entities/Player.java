@@ -12,12 +12,13 @@ public class Player extends Entity {
     public static final float RUN_SPEED = 20;
     public static final float TURN_SPEED = 160;
     public static final float GRAVITY = -50;
-    private static final float JUMP_POWER = 30;
+    private static final float JUMP_POWER = 50;
 
+    private int running = -1;
     private float currentSpeed = 0;
     private float currentTurnSpeed = 0;
     private float upwardsSpeed = 0;
-
+    private boolean sprintPressed = false;
     private boolean isInAir = false;
 
     public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
@@ -49,8 +50,15 @@ public class Player extends Entity {
     }
 
     private void checkInputs() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)){
-            this.currentSpeed = RUN_SPEED;
+        if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
+            sprintPressed = true;
+        } else if (sprintPressed) {
+            sprintPressed = false;
+            running *= -1;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+            if (running > 0) this.currentSpeed = RUN_SPEED*2.5f;
+            else this.currentSpeed = RUN_SPEED;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
             this.currentSpeed = -RUN_SPEED;
         } else {

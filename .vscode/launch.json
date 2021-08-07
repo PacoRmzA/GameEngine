@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch MainGameLoop",
+            "request": "launch",
+            "mainClass": "MainGameLoop",
+            "projectName": "GameEngine_440b9819"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - MainGameLoop",
             "request": "launch",
             "mainClass": "engineTester.MainGameLoop",
